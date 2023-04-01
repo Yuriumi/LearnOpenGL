@@ -21,8 +21,17 @@
     <ClCompile Include="C:\ProgrameLib_C++\src\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ref\Shader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\vertex.shader" />
+    <None Include="shader\fragment.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ref\Shader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

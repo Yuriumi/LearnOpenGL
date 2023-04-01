@@ -133,10 +133,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\ProgrameLib_C++\src\glad.c" />
+    <ClCompile Include="ref\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shader\fragment.shader" />
     <None Include="shader\vertex.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ref\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
