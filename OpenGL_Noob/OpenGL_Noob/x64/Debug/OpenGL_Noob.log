@@ -1,3 +1,3 @@
 ﻿  main.cpp
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(6,10): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(10,10): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
   OpenGL_Noob.vcxproj -> D:\LearnOpenGL\OpenGL_Noob\x64\Debug\OpenGL_Noob.exe

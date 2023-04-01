@@ -1,6 +1,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <iostream>
 
 #include "../ref/Shader.h";
@@ -127,6 +131,11 @@ int main()
 
 	stbi_image_free(data);
 
+	// ±‰ªªæÿ’Û
+	glm::mat4 trans;
+	// trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0));
+	// trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
+
 	// ‰÷»æ—≠ª∑
 	while (!glfwWindowShouldClose(window))
 	{
@@ -146,6 +155,11 @@ int main()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 		glUniform1i(glGetUniformLocation(ourShader.ID, "texture2"), 1);
+		// æÿ’Û±‰ªª
+		trans = glm::mat4(1.0f);
+		trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+		trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "transform"), 1, GL_FALSE, glm::value_ptr(trans));
 
 		glBindVertexArray(VAO);
 		// glDrawArrays(GL_TRIANGLES, 0, 3);
