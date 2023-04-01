@@ -33,5 +33,16 @@
     <ClInclude Include="ref\Shader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ref\stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Texture\container.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Texture\awesomeface.png">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

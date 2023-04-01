@@ -142,6 +142,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ref\Shader.h" />
+    <ClInclude Include="ref\stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Texture\awesomeface.png" />
+    <Image Include="Texture\container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
