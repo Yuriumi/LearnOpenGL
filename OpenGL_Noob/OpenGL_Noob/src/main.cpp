@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "../ref/Shader.h";
+#include "../ref/Camera.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../ref/stb_image.h"
 
@@ -22,13 +23,8 @@ float screenHeight = 600.0f;
 
 // 摄像机相关
 glm::vec3 cameraPos = glm::vec3(0.0, 0.0, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-float fov = 45.0f;
-
-float pitch = 0.0f;
-float yaw = -90.0f;
+Camera mainCamera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 float lastX = screenWidth / 2.0f;
 float lastY = screenHeight / 2.0f;
@@ -225,7 +221,7 @@ int main()
 
 	// MVP矩阵
 	glm::mat4 model;
-	glm::mat4 view;
+	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection;
 
 	// 渲染循环
@@ -268,10 +264,10 @@ int main()
 			float radius = 10.0f;
 			float camX = sin(glfwGetTime()) * radius;
 			float camZ = cos(glfwGetTime()) * radius;
-			view = glm::mat4(1.0f);
-			view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+			// view = glm::mat4(1.0f);
+			view = mainCamera.GetViewMatrix();
 			projection = glm::mat4(1.0f);
-			projection = glm::perspective(glm::radians(fov), screenWidth / screenHeight, 0.1f, 100.0f);
+			projection = glm::perspective(glm::radians(mainCamera.Fov), screenWidth / screenHeight, 0.1f, 100.0f);
 			// 矩阵应用
 			glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 			glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
@@ -302,13 +298,13 @@ void processInput(GLFWwindow* window)
 
 	float cameraSpeed = 2.5f * deltaTime;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		cameraPos += cameraSpeed * cameraFront;
+		mainCamera.ProcessKeyboard(Camera_Movement::FORWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		cameraPos -= cameraSpeed * cameraFront;
+		mainCamera.ProcessKeyboard(Camera_Movement::BACKWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		cameraPos -= cameraSpeed * glm::normalize(glm::cross(cameraFront, cameraUp));
+		mainCamera.ProcessKeyboard(Camera_Movement::LEFT, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		cameraPos += cameraSpeed * glm::normalize(glm::cross(cameraFront, cameraUp));
+		mainCamera.ProcessKeyboard(Camera_Movement::RIGHT, deltaTime);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -321,36 +317,14 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	}
 
 	float xoffset = xpos - lastX;
-	float yoffset = ypos - lastY;
+	float yoffset = lastY - ypos;
 	lastX = xpos;
 	lastY = ypos;
 
-	// 鼠标灵敏度
-	float sensitivity = 0.05f;
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	yaw += xoffset;
-	pitch -= yoffset;
-
-	if (pitch > 85.0f)
-		pitch = 85.0f;
-	if (pitch < -85.0f)
-		pitch = -85.0f;
-
-	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
-	cameraFront = glm::normalize(front);
+	mainCamera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	if (fov >= 45.0f && fov <= 120.0f)
-		fov -= yoffset;
-	if (fov < 45.0f)
-		fov = 45.0f;
-	if (fov > 120.0f)
-		fov = 120.0f;
+	mainCamera.ProcessMouseScroll(yoffset);
 }

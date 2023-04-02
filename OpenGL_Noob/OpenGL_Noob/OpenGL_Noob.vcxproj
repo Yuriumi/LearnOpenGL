@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\ProgrameLib_C++\src\glad.c" />
+    <ClCompile Include="ref\Camera.cpp" />
     <ClCompile Include="ref\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -141,6 +142,7 @@
     <None Include="shader\vertex.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ref\Camera.h" />
     <ClInclude Include="ref\Shader.h" />
     <ClInclude Include="ref\stb_image.h" />
   </ItemGroup>

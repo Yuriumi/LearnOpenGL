@@ -1,15 +1,17 @@
-﻿  main.cpp
+﻿  Camera.cpp
+  main.cpp
 D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(10,10): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(50,53): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(50,40): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(235,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(269,15): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(270,15): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(318,11): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(319,11): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(323,16): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(324,16): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(325,10): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(326,10): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(351,10): warning C4244: “-=”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(46,53): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(46,40): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(231,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(265,15): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(266,15): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(314,11): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(315,11): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(319,16): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(320,16): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(321,10): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(322,10): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\LearnOpenGL\OpenGL_Noob\OpenGL_Noob\src\main.cpp(329,32): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+  正在生成代码...
   OpenGL_Noob.vcxproj -> D:\LearnOpenGL\OpenGL_Noob\x64\Debug\OpenGL_Noob.exe
