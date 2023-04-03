@@ -21,6 +21,10 @@ void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+ImGuiIO& init_imgui(GLFWwindow* window);
+void draw_imgui(const char* guiName, ImGuiIO& io);
+void renderer_gui();
+void destory_gui();
 
 // 窗口相关
 float screenWidth = 800.0f;
@@ -230,6 +234,10 @@ int main()
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection;
 
+	// 初始化ImGui
+	ImGuiIO& io = init_imgui(window);
+	
+
 	// 渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
@@ -237,6 +245,11 @@ int main()
 		float currentTime = glfwGetTime();
 		deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
+
+		// ImGui Frame Update
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
 		// 输入检测
 		processInput(window);
@@ -283,11 +296,17 @@ int main()
 		// glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
+		// 绘制渲染Gui
+		draw_imgui("OpenGL_Noob_Settings",io);
+		renderer_gui();
+
 		// 检测调用事件,交换缓冲
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
+	destory_gui();
+	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
 }
@@ -354,4 +373,47 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		else if (action == GLFW_RELEASE)
 			cameraMove = false;
 	}
+}
+
+ImGuiIO& init_imgui(GLFWwindow* window)
+{
+	// 初始化ImGui上下文
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	// 设置默认主题
+	ImGui::StyleColorsDark();
+	// 设置渲染器和输入处理
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330 core");
+
+	return io;
+}
+
+void draw_imgui(const char* guiName,ImGuiIO& io)
+{
+	ImGui::Begin(guiName);
+	// Draw Gui
+	ImGui::Text("Application frame %.1f FPS", io.Framerate);
+	ImGui::Text("Camerea Position"); ImGui::SameLine();
+	ImGui::TextColored(ImVec4(1.0f,0.0f,0.0f,1.0f),"x: %.1f", mainCamera.Position.x); ImGui::SameLine();
+	ImGui::TextColored(ImVec4(0.0f,1.0f,0.0f,1.0f),"y: %.1f", mainCamera.Position.y); ImGui::SameLine();
+	ImGui::TextColored(ImVec4(0.0f,0.0f,1.0f,1.0f),"z: %.1f", mainCamera.Position.z);
+	ImGui::SliderFloat("CameraFov", &mainCamera.Fov, 45.0f, 120.0f);
+	ImGui::SliderFloat("CameraSpeed", &mainCamera.MovementSpeed,1.0f,10.0f);
+
+	ImGui::End();
+}
+
+void renderer_gui()
+{
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void destory_gui()
+{
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 }
