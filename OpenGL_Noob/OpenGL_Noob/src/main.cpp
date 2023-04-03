@@ -9,13 +9,18 @@
 
 #include "../ref/Shader.h";
 #include "../ref/Camera.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "../ref/stb_image.h"
+#include "../ref/imgui/imgui.h";
+#include "../ref/imgui/imgui_impl_glfw.h"
+#include "../ref/imgui/imgui_impl_opengl3.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 // 窗口相关
 float screenWidth = 800.0f;
@@ -30,6 +35,7 @@ float lastX = screenWidth / 2.0f;
 float lastY = screenHeight / 2.0f;
 
 bool firstMouse = true;
+bool cameraMove = false;
 
 // 时间相关
 float deltaTime = 0.0f;
@@ -51,11 +57,11 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -293,18 +299,27 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void processInput(GLFWwindow* window)
 {
+	// Keyboard Input
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
 	float cameraSpeed = 2.5f * deltaTime;
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		mainCamera.ProcessKeyboard(Camera_Movement::FORWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		mainCamera.ProcessKeyboard(Camera_Movement::BACKWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		mainCamera.ProcessKeyboard(Camera_Movement::LEFT, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		mainCamera.ProcessKeyboard(Camera_Movement::RIGHT, deltaTime);
+	if (cameraMove)
+	{
+		// Mouse Setting
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			mainCamera.ProcessKeyboard(Camera_Movement::FORWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			mainCamera.ProcessKeyboard(Camera_Movement::BACKWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			mainCamera.ProcessKeyboard(Camera_Movement::LEFT, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			mainCamera.ProcessKeyboard(Camera_Movement::RIGHT, deltaTime);
+	}
+	else
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -321,10 +336,22 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	mainCamera.ProcessMouseMovement(xoffset, yoffset);
+	if (cameraMove)
+		mainCamera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	mainCamera.ProcessMouseScroll(yoffset);
+}
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_RIGHT)
+	{
+		if (action == GLFW_PRESS)
+			cameraMove = true;
+		else if (action == GLFW_RELEASE)
+			cameraMove = false;
+	}
 }
