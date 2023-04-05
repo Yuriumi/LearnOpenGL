@@ -12,10 +12,12 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../ref/stb_image.h"
+
 #include "../ref/imgui/imgui.h";
 #include "../ref/imgui/imgui_impl_glfw.h"
 #include "../ref/imgui/imgui_impl_opengl3.h"
 
+// Function Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -62,6 +64,7 @@ int main()
 	}
 	glfwMakeContextCurrent(window);
 
+	// GLFW 窗口事件订阅
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
@@ -237,7 +240,6 @@ int main()
 	// 初始化ImGui
 	ImGuiIO& io = init_imgui(window);
 	
-
 	// 渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
@@ -258,7 +260,6 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// 绘制代码(渲染循环)
-		// ......
 		ourShader.use();
 		// 绑定纹理
 		glActiveTexture(GL_TEXTURE0); // 在绑定纹理之前先激活纹理单元,一个纹理的默认纹理单元是0，它是默认的激活纹理单元
